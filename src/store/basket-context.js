@@ -5,7 +5,8 @@ const BasketContext = React.createContext({
   totalAmount: 0,
   tolerableUpperLimits:[],
   addItem: (item) => {},
-  removeItem: (id) => {}
+  removeItem: (id) => {},
+  loadLimits: (tolerableUpperLimits) => {}
 });
 
 export default BasketContext;

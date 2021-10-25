@@ -30,9 +30,9 @@ const ProductList = (props) => {
         };
       });
 
-      basketCtx.tolerableUpperLimits(data.config.tolerableUpperLimits);
-
       setProducts(transformedProducts);
+      basketCtx.loadLimits(data.config.tolerableUpperLimits);
+
     } catch (error) {
       setError(error.message);
     }
