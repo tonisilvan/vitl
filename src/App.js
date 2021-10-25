@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import ProductList from "./components/ProductList/ProductList";
+import React, {useState} from "react";
+import Header from "./components/Layout/Header";
+import Basket from "./components/Basket/Basket";
+import BasketProvider from "./store/BasketProvider";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [basketIsShown, setBasketIsShown] = useState(false);
+
+    const showBasketHandler = () => {
+        setBasketIsShown(true);
+    };
+
+    const hideBasketHandler = () => {
+        setBasketIsShown(false);
+    };
+
+    return (
+        <BasketProvider>
+            {basketIsShown && <Basket onClose={hideBasketHandler}/>}
+            <Header onShowBasket={showBasketHandler}/>
+            <main>
+                <ProductList/>
+            </main>
+        </BasketProvider>
+    );
 }
 
 export default App;
