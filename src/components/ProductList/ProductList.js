@@ -29,10 +29,9 @@ const ProductList = (props) => {
           nutrients: productData.nutrients,
         };
       });
-
+      
       setProducts(transformedProducts);
       basketCtx.loadLimits(data.config.tolerableUpperLimits);
-
     } catch (error) {
       setError(error.message);
     }
