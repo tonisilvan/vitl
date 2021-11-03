@@ -11,9 +11,9 @@ const defaultBasketState = {
 const basketReducer = (state, action) => {
     if (action.type === 'LOAD') {
         return {
-            items: state.tolerableUpperLimits,
-            totalAmount: state.tolerableUpperLimits,
-            tolerableUpperLimits: state.tolerableUpperLimits
+            items: state.items,
+            totalAmount: state.totalAmount,
+            tolerableUpperLimits: action.tolerableUpperLimits
         };
     }
 
