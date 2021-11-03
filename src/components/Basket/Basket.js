@@ -12,15 +12,35 @@ const Basket = (props) => {
     const [valid, setValid] = useState(true);
 
     useEffect(() => {
-        basketCtx.items.map((item) => {
-            item.nutrients.map((nutrient)=> {
-                const tul = nutrient.amount * item.amount;
-                const limit = basketCtx.tolerableUpperLimits.find(limit => limit.id === nutrient.id);
-                if (tul < limit.amount ) {
+
+        let isValid = true;
+        let i = 0;
+        do {
+            let j = 0;
+            do {
+                const tul = basketCtx.items[i].amount * basketCtx.items[i].nutrients[j].amount;
+                const limit = basketCtx.tolerableUpperLimits.find(limit => limit.id === basketCtx.items[i].nutrients[j].id);
+                if (tul > limit.amount ) {
+                    isValid = false;
                     setValid(false);
+                } else {
+                    setValid(true);
                 }
+                j++;
+            } while (j < basketCtx.items[i].nutrients.length && isValid)
+            i++;
+        }
+        while (i < basketCtx.items.length && isValid);
+
+
+
+        basketCtx.items.forEach((item) => {
+            item.nutrients.forEach((nutrient) => {
+
             });
         });
+
+
     }, [basketCtx.items]);
 
 
