@@ -10,28 +10,27 @@ const Basket = (props) => {
   const totalAmount = `${basketCtx.totalAmount.toFixed(2)} GBP`;
   const hasItems = basketCtx.items.length > 0;
   const [valid, setValid] = useState(true);
-
-  useEffect(() => {
-    let isValid = true;
-    let i = 0;
-    do {
-      let j = 0;
-      do {
-        const tul =
-          basketCtx.items[i].amount * basketCtx.items[i].nutrients[j].amount;
+  const isValid = () => {
+    for (let item of basketCtx.items) {
+      for (let nutrient of item.nutrients) {
+        const tul = item.amount * nutrient.amount;
         const limit = basketCtx.tolerableUpperLimits.find(
-          (limit) => limit.id === basketCtx.items[i].nutrients[j].id
+            (limit) => limit.id === nutrient.id
         );
         if (tul > limit.amount) {
-          isValid = false;
           setValid(false);
+          return;
         } else {
           setValid(true);
         }
-        j++;
-      } while (j < basketCtx.items[i].nutrients.length && isValid);
-      i++;
-    } while (i < basketCtx.items.length && isValid);
+      }
+    };
+  }
+
+  useEffect(() => {
+    if (basketCtx.items.length > 0) {
+      isValid();
+    }
 
     basketCtx.items.forEach((item) => {
       item.nutrients.forEach((nutrient) => {});
