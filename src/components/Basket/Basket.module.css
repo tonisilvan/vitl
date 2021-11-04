@@ -44,3 +44,13 @@
   background-color: #8a2b06;
   color: white;
 }
+
+.red {
+  color: red;
+}
+
+.disabled .disabled:hover {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
